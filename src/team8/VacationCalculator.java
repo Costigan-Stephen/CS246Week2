@@ -1,9 +1,10 @@
 package team8;
 
+import java.util.ArrayList;
 import java.util.List;
 class VacationCalculator {
 
-    ExpList expenses;
+    List<Expense> expenses = new ArrayList<Expense>();
 
     public static void main(String[] args) {
 
@@ -27,7 +28,8 @@ class VacationCalculator {
     public float calculateVacationCost(Destination dest)
     {
         Cruise c = new Cruise(dest);
-        return c.getCost();
+        expenses.add(c);
+        return tallyExpenses(expenses);
     }
 
     /**
