@@ -4,18 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 class VacationCalculator {
 
-    List<Expense> expenses = new ArrayList<Expense>();
-
     public static void main(String[] args) {
 
         VacationCalculator vc = new VacationCalculator();
 
         // Calculate some vacation costs...
-        float japanCost = vc.calculateVacationCost(Destination.Japan);
+        float japanCost     = vc.calculateVacationCost(Destination.Japan, 5);
+        float mexicoCost    = vc.calculateVacationCost(Destination.Mexico, 5);
+        float europeCost    = vc.calculateVacationCost(Destination.Europe, 5);
 
         // Print the cost...
-        System.out.print("Total cost of the trip: $");
-        System.out.print(japanCost);
+        System.out.format(String.format("Total cost for trip to Japan:  $%.2f%n", japanCost));
+        System.out.format(String.format("Total cost for trip to Mexico: $%.2f%n", mexicoCost));
+        System.out.format(String.format("Total cost for trip to Europe: $%.2f%n", europeCost));
     }
 
     /**
@@ -25,10 +26,15 @@ class VacationCalculator {
      * @param  dest the destination of the vacation
      * @return      the total cost of the vacation
      */
-    public float calculateVacationCost(Destination dest)
+    public float calculateVacationCost(Destination dest, int nights)
     {
-        Cruise c = new Cruise(dest);
+        List<Expense> expenses = new ArrayList<Expense>();
+        Cruise  c = new Cruise(dest);
+        Dining  d = new Dining(dest, nights);
+        Lodging l = new Lodging(dest, nights);
         expenses.add(c);
+        expenses.add(d);
+        expenses.add(l);
         return tallyExpenses(expenses);
     }
 
